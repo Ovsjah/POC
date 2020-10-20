@@ -1,14 +1,12 @@
 class Stripe::AccountsController < ApplicationController
+  # triggers capability.updated event if the list of capabilities is provided in params
   def new
     render json: Stripe::Account.create(account_params.to_h)
   end
 
+  # triggers account updated during onbording
   def create_account_link
     render json: Stripe::AccountLink.create(account_params.to_h), status: :created
-  end
-
-  def account_updated_webhook
-    puts "Hello from ACCOUNT UPDATED WEBHOOK!"
   end
 
   private
